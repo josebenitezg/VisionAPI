@@ -23,7 +23,7 @@ We can use an image url, local image path or numpy array to make an inference.
 ```python
 import VisionAPI
 
-inference_endpoint = VisionAPI.VisionAPI()
+inference_endpoint = VisionAPI.Inference()
 
 image = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
 
