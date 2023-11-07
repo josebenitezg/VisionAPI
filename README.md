@@ -50,3 +50,5 @@ response = inference_endpoint.video_inference(video, prompt)
 print(response)
 
 ```
+
+Contribute to this project by adding more models and features.
