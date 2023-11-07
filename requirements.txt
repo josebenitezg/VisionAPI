@@ -1,0 +1,4 @@
+openai
+opencv-python
+numpy
+gradio==3.50.2
