@@ -21,9 +21,9 @@ export OPENAI_API_KEY=<your key>
 We can use an image url, local image path or numpy array to make an inference.
 
 ```python
-import VisionAPI
+import visionapi
 
-inference_endpoint = VisionAPI.Inference()
+inference_endpoint = visionapi.Inference()
 
 image = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
 
@@ -31,15 +31,15 @@ prompt = "Describe the image"
 
 response = inference_endpoint.image_inference(image, prompt)
 
-print(response)
+print(response.message.content)
 
 ```
 ##### Video Inference
 
 ```python
-import VisionAPI
+import visionapi
 
-inference_endpoint = VisionAPI.Inference()
+inference_endpoint = visionapi.Inference()
 
 prompt = "These are frames from a video that I want to upload. Generate a compelling description that I can upload along with the video."
 
@@ -47,8 +47,10 @@ video = "video.mp4"
 
 response = inference_endpoint.video_inference(video, prompt)
 
-print(response)
+print(response.message.content)
+
 
 ```
+
 
 Contribute to this project by adding more models and features.
