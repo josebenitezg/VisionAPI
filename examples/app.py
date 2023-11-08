@@ -8,13 +8,13 @@ import uuid
 import gradio as gr
 import numpy as np
 
-import visionapi as VisionAPI
+import visionapi
 
 HEADER = """
 # 📸 VisionAPI. 
 """
 
-inference_endpoint = VisionAPI.Inference()
+inference = visionapi.Inference()
 
 def save_image_to_drive(image: np.ndarray) -> str:
     image_filename = f"{uuid.uuid4()}.jpeg"
@@ -29,7 +29,7 @@ def respond(image: np.ndarray, prompt: str, chat_history):
     image = np.fliplr(image)
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
     image_path = save_image_to_drive(image)
-    response = inference_endpoint.image_inference(image, prompt)
+    response = inference.image(image, prompt)
     chat_history.append(((image_path,), None))
     chat_history.append((prompt, response.message.content))
     return "", chat_history
