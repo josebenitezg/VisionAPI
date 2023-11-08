@@ -1,2 +1,2 @@
-from VisionAPI.app import Inference
-from VisionAPI.utils import encode_video
+from visionapi.app import Inference
+from visionapi.utils import encode_video

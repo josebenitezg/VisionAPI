@@ -8,7 +8,7 @@ import uuid
 import gradio as gr
 import numpy as np
 
-import VisionAPI
+import visionapi as VisionAPI
 
 HEADER = """
 # 📸 VisionAPI. 

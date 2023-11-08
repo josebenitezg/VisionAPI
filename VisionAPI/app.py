@@ -2,12 +2,11 @@ import os
 import cv2
 import base64
 import numpy as np
-from VisionAPI.utils import encode_video
+from visionapi.utils import encode_video
 from openai import OpenAI
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GPT_MODEL = "gpt-4-vision-preview"
-
 class Inference:
     def __init__(self):
         self.client = OpenAI()
