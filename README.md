@@ -134,3 +134,4 @@ Add cool stuff:
 
 Your contributions are what make VisionAPI not just a tool, but a community.
 
+Take inspiration from: github.com/roboflow/webcamgpt
