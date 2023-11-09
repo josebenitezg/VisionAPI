@@ -8,7 +8,8 @@ from visionapi.utils import encode_video
 from openai import OpenAI
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-GPT_MODEL = "gpt-4-vision-preview"
+GPTV_MODEL = "gpt-4-vision-preview"
+GPT_MODEL = "gpt-4-1106-preview"
 TTS_MODEL = "tts-1"  
 STT_MODEL = "whisper-1"
 VOICE = "alloy"  
@@ -21,7 +22,7 @@ class Inference:
 
     Attributes:
     - client (OpenAI): The OpenAI client initialized with the API key.
-    - gpt_model (str): The identifier for the GPT model used for inferences.
+    - gpt4v_model (str): The identifier for the GPT model used for inferences.
     
     Methods:
     - image_inference: Processes an image with a given prompt and returns the result.
@@ -42,6 +43,7 @@ class Inference:
         if OPENAI_API_KEY is None:
             raise ValueError("API_KEY is not set")
         self.api_key = OPENAI_API_KEY
+        self.gptv_model = GPTV_MODEL
         self.gpt_model = GPT_MODEL
     
     def image(self, image_input, prompt) -> str:
@@ -88,7 +90,7 @@ class Inference:
 
         # Make the API call
         response = self.client.chat.completions.create(
-            model=self.gpt_model,
+            model=self.gptv_model,
             messages=[{"role": "user", "content": message_content}],
             max_tokens=300,
         )
@@ -120,7 +122,7 @@ class Inference:
         ]
         
         params = {
-            "model": self.gpt_model,
+            "model": self.gptv_model,
             "messages": PROMPT_MESSAGES,
             "max_tokens": 200,
         }
@@ -238,3 +240,45 @@ class Inference:
             return transcript
         else:
             return transcript["text"]
+
+    def generate_text(self, messages, stream=False, stop=None, temperature=1, max_tokens=150, top_p=1, frequency_penalty=0, presence_penalty=0):
+        '''
+        Generates text using OpenAI's text generation models with the latest API.
+        This method can stream the responses if needed and can be configured for 
+        various parameters such as temperature and max tokens.
+
+        Parameters:
+        - system (dict): The system content that includes instructions or examples for the model.
+        - user_prompt (str): The user's input, which acts as the prompt for the model.
+        - json_mode (bool): If True, outputs in JSON format.
+        - stop (list of str): A list of stop sequences where the model's output will stop.
+        - temperature (float): Controls randomness. Lowering results in more deterministic outputs.
+        - max_tokens (int): The maximum number of tokens to generate.
+        - top_p (float): Controls diversity. Lowering results in less random completions.
+        - frequency_penalty (float): The penalty for new tokens based on their frequency.
+        - presence_penalty (float): The penalty for new tokens based on their presence.
+
+        Returns:
+        - A generator that yields the model's outputs as they become available.
+
+        Example usage:
+        system = {"prompt": "Translate the following sentences into French:"}
+        user_prompt = "How are you today?"
+        for chunk in inference.generate_text(system, user_prompt, stream=True):
+            print(chunk['choices'][0]['message']['content'])
+        '''
+
+        params = {
+            "model": self.gpt_model,
+            "messages": messages,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "top_p": top_p,
+            "frequency_penalty": frequency_penalty,
+            "presence_penalty": presence_penalty,
+            "stop": stop
+        }
+
+        completion = self.client.chat.completions.create(**params, stream=stream)
+
+        return completion  # Return the generator object for JSON responses
