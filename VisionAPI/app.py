@@ -241,7 +241,7 @@ class Inference:
         else:
             return transcript["text"]
 
-    def generate_text(self, messages, stream=False, stop=None, temperature=1, max_tokens=150, top_p=1, frequency_penalty=0, presence_penalty=0):
+    def generate_text(self, messages, stream=False, stop=None, temperature=1, top_p=1, frequency_penalty=0, presence_penalty=0):
         '''
         Generates text using OpenAI's text generation models with the latest API.
         This method can stream the responses if needed and can be configured for 
@@ -272,7 +272,6 @@ class Inference:
             "model": self.gpt_model,
             "messages": messages,
             "temperature": temperature,
-            "max_tokens": max_tokens,
             "top_p": top_p,
             "frequency_penalty": frequency_penalty,
             "presence_penalty": presence_penalty,
