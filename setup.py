@@ -9,7 +9,7 @@ with open('requirements.txt', encoding='utf-8') as f:
 
 setup(
     name='VisionAPI',
-    version='0.1.1',
+    version='0.1.3',
     author='Jose Benitez',
     author_email='benitez.ing@gmial.com',
     description='VisionAPI - a Python library for GPT-Based Vision Models inference',
